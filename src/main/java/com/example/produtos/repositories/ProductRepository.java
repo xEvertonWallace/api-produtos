@@ -9,5 +9,5 @@ import com.example.produtos.models.ProductModel;
 
 @Repository 
 public interface ProductRepository extends JpaRepository<ProductModel, UUID> {
-
+//comessa inteface, consigo obter todos os metodos para realizar as operacoes CRUD
 }
