@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.produtos.models.ProductModel;
 
-@Repository
+@Repository 
 public interface ProductRepository extends JpaRepository<ProductModel, UUID> {
 
 }
