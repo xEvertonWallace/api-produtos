@@ -1,4 +1,4 @@
-package com.example.produtos.controller;
+package com.example.products.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.produtos.dtos.ProductRecordDto;
-import com.example.produtos.models.ProductModel;
-import com.example.produtos.repositories.ProductRepository;
+import com.example.products.dtos.ProductRecordDto;
+import com.example.products.models.ProductModel;
+import com.example.products.repositories.ProductRepository;
 
 import jakarta.validation.Valid;
 
