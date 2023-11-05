@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.service.annotation.PutExchange;
 
@@ -23,12 +25,13 @@ import com.example.products.repositories.ProductRepository;
 import jakarta.validation.Valid;
 
 @RestController
+@RequestMapping("/products")
 public class ProductController {
 	
 	@Autowired
 	ProductRepository productRepository;
 	
-	@PostMapping("/products")
+	@PostMapping
 	//@valid para validar os metodos de autenticação da classe dto
 	public ResponseEntity<ProductModel> saveProduct(@RequestBody @Valid ProductRecordDto productRecordDto){
 		//posso usar o var para nao precisar colocar a classe no lado esquerdo e sim somente depois do new
@@ -39,14 +42,14 @@ public class ProductController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(productRepository.save(productModel));
 	}
 	
-	@GetMapping("/products")
+	@GetMapping
 	public ResponseEntity<List<ProductModel>> getAllProducts(){
 		//o retorno será um response entity, porém no corpo tera uma lista de produtos
 		return ResponseEntity.status(HttpStatus.OK).body(productRepository.findAll());
 	}
 	
 	//apresenta um unico produto passando o id
-	@GetMapping("/products/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Object> getOneProducts(@PathVariable(value="id") UUID id){
 		//percorre a nase de dados para verificar se existe esse id
 		Optional<ProductModel> productO= productRepository.findById(id);
@@ -58,7 +61,7 @@ public class ProductController {
 		return ResponseEntity.status(HttpStatus.OK).body(productO.get());	
 	}
 	
-	@PutMapping("/products/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<Object> updateProduct(@PathVariable(value="id") UUID id, 
 	@RequestBody @Valid ProductRecordDto productRecordDto){
 		Optional<ProductModel> productO = productRepository.findById(id);
@@ -68,9 +71,8 @@ public class ProductController {
 		var productModel = productO.get();
 		//metodo put
 		BeanUtils.copyProperties(productRecordDto, productModel);
-		return ResponseEntity.status(HttpStatus.OK).body(productRepository.save(productModel));
-
-		
+		return ResponseEntity.status(HttpStatus.OK).body(productRepository.save(productModel));	
 	}
+	
 	
 }
